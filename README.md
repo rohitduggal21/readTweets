@@ -11,7 +11,7 @@ Use the Twitter Streaming API to track a given keyword and generate various repo
   - Libraries required: <br/>
                       - `numpy` : `pip3 install numpy` <br/>
                       - `pandas`: `pip3 install pandas` <br/>
-                      - `nltk`  : `pip3 install nltk` (After installation, run `nltk.download('stopwords')`)
+                      - `nltk`  : `pip3 install nltk` (After installation, in a `python3` shell, run `nltk.download('stopwords')`)
   
 ## INSTRUCTIONS
   - Get inside the directory `readTweets`.
