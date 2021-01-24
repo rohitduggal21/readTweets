@@ -8,6 +8,10 @@ Use the Twitter Streaming API to track a given keyword and generate various repo
   - If you already have a developer account, activate the new developer portal.
   - Create a **Project** and an associated **developer App** in the developer portal.
   - Navigate to your app's `Keys and tokens` page, and save your `API Keys`, `Access Tokens`, and `Bearer Token` to your password manager.
+  - Libraries required: <br/>
+                      - `numpy` : `pip3 install numpy` <br/>
+                      - `pandas`: `pip3 install pandas` <br/>
+                      - `nltk`  : `pip3 install nltk` (After installation, run `nltk.download('stopwords')`)
   
 ## INSTRUCTIONS
   - Get inside the directory `readTweets`.
