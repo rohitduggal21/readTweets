@@ -25,9 +25,9 @@ Use the Twitter Streaming API to track a given keyword and generate various repo
   `2`: Run the flow first with span `60s`, `120s`, `180s` and so on.
 
 ## EXAMPLES
-  - Say, we want to run the flow once with span `120s` with keyword `cat`
+  - Say, we want to run the flow once with span `120s`, keyword `cat`
   - Command: `python3 cat 120 <your_bearer_token> 0`
-  - Now, we want to run the flow continuously with span `60s` with keyword `dog`
+  - Now, we want to run the flow continuously with span `60s`, keyword `dog`
   - Command: `python3 dog 60 <your_bearer_token> 1`
   - Finally, we want to run the flow in an incremental fashion, i.e span = `60s`, `120s`, `180s` and so on.
   - Command: `python3 dog <put_anything_here> <your_bearer_token> 2`
