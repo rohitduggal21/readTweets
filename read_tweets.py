@@ -10,6 +10,8 @@ from nltk.corpus import stopwords
 import sys
 
 class readTweets:	
+
+	#Initialize readTweets Object
 	def __init__(self):	
 		self.data = []
 		self.id = None
@@ -18,6 +20,7 @@ class readTweets:
 		self.domains = {}
 		self.words = []
 
+	#Set Rule based on the keyword
 	def set_rule(self, keyword, bearer_token):	
 		rule = {
 				"add": [
@@ -35,6 +38,7 @@ class readTweets:
 			self.id = json.loads(rule_object.text)['data'][0]['id']
 			self.rule_set = True
 
+	#Un-Set Rule
 	def unset_rule(self, keyword, bearer_token):	
 		rule = {
 				"delete": {
@@ -51,6 +55,7 @@ class readTweets:
 		if rule_object.status_code == 200:	
 			self.rule_set = False
 
+	#Fetch data based on the rule set
 	def get_data(self, keyword, bearer_token, span):	
 		if self.rule_set:	
 			self.data = []
@@ -71,6 +76,7 @@ class readTweets:
 			if len(self.data) > 0:	
 				self.data = pd.DataFrame(self.data)
 
+	#Process links fetched from tweets
 	def process_links(self,decoded):	
 		if decoded is not np.nan:	
 			if 'urls' in decoded.keys():	
@@ -82,12 +88,14 @@ class readTweets:
 					else:	
 						self.domains[domain] = self.domains[domain] + 1
 
+	#Process/Filter tweets
 	def process_tweets(self, text):	
 		for word in text.split(" "):	
 			word = word.replace(r'(\\n|\\t|\\x|[^a-zA-Z0-9])',"")
 			if len(re.findall(r'(https|http)',word))==0 and len(word)!=0 and word.lower() not in stopwords.words('english') and word.lower() not in ["a","an","the"]:	
 				self.words.append(word)
 
+	#Generate report based on the data fetched
 	def generate_reports(self):	
 		if len(self.data) > 0:	
 
@@ -120,8 +128,14 @@ if len(sys.argv) < 5:
 	print("Format: <keyword> <span> <bearer_token> <mode>")
 else:	
 	mode = int(sys.argv[4])
+
+	#Initialize readTweets Object
 	rt = readTweets()
+
+	#Set Rule for the keyword provided
 	rt.set_rule(sys.argv[1], sys.argv[3])
+
+	#Check the mode provided
 	if mode == 0:	
 		rt.get_data(
 				keyword=sys.argv[1],
@@ -130,7 +144,6 @@ else:
 	   		    )
 
 		rt.generate_reports()
-		rt.unset_rule(sys.argv[1], sys.argv[3])
 	elif mode == 1:	
 		i = 1
 		while i >= 1:	
@@ -145,7 +158,6 @@ else:
 			ans = input("Press 1 to continue, 0 to Exit..")
 			if ans == '0':	
 				break
-		rt.unset_rule(sys.argv[1], sys.argv[3])
 	else:	
 		i = 60
 		while i >= 60:	
@@ -160,4 +172,6 @@ else:
 			ans = input("Press 1 to continue, 0 to Exit..")
 			if ans == '0':	
 				break
-		rt.unset_rule(sys.argv[1], sys.argv[3])
+
+	#Un-Set the rule
+	rt.unset_rule(sys.argv[1], sys.argv[3])
